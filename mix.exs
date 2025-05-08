@@ -66,7 +66,7 @@ defmodule Clerk.MixProject do
   defp package do
     [
       description: description(),
-      files: ["lib", "config", "mix.exs", "README*", "LICENSE"],
+      files: ["lib", "mix.exs", "README*", "LICENSE"],
       licenses: ["MIT"],
       links: %{"GitHub" => @github, "Changelog" => "#{@github}/blob/main/CHANGELOG.md"}
     ]
