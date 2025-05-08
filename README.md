@@ -14,3 +14,14 @@ def deps do
   ]
 end
 ```
+
+## Setup
+
+Create/get your [Clerk Secret Key](https://dashboard.clerk.com/).
+Add the following to your `config/config.exs`:
+
+```elixir
+config :clerk_ex,
+  url: "https://api.clerk.com", # optional
+  secret: "YOUR_CLERK_SECRET_KEY"
+```
