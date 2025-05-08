@@ -18,7 +18,7 @@ defmodule Clerk.MixProject do
       source_url: @github,
       docs: docs(),
       dialyzer: [
-        plt_add_apps: [:bold, :ex_unit, :jason],
+        plt_add_apps: [:clerk_ex, :ex_unit, :jason],
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ],
       test_coverage: [tool: ExCoveralls],
