@@ -1,7 +1,7 @@
 defmodule Clerk.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
   @name "Clerk Ex"
   @github "https://github.com/boterop/clerk_ex"
 
