@@ -17,7 +17,11 @@ defmodule Clerk.Shared.HandleResponse do
     {:errors, reasons}
   end
 
+  def handle_response({:ok, %Tesla.Env{body: reason}}) do
+    {:errors, [reason]}
+  end
+
   def handle_response(_) do
-    {:errors, :internal_server}
+    {:errors, :internal_error}
   end
 end

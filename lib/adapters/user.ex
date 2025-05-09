@@ -56,7 +56,7 @@ defmodule Clerk.Adapters.User do
   end
 
   @impl true
-  def delete_id(id), do: id |> delete() |> handle_response()
+  def delete_id(id), do: "#{@url}/#{id}" |> delete() |> handle_response()
 
   @impl true
   def ban(id) do
@@ -139,7 +139,7 @@ defmodule Clerk.Adapters.User do
 
   @impl true
   def verify_totp(id, code) do
-    "/v1/users/#{id}/verify_totp"
+    "#{@url}/#{id}/verify_totp"
     |> post(code: code)
     |> handle_response
   end
