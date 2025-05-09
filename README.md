@@ -185,3 +185,63 @@ user_id = "user_2wpOgEtHRbyzrrwhHzCC0s44yX7"
 code = "123456"
 {:ok, response} = Clerk.User.verify_totp(user_id, code)
 ```
+
+## Email Addresses
+
+The real responses from the Clerk API might change over time. To get the most up-to-date information on the structure of the responses, always refer to the [official documentation](https://clerk.com/docs/reference/backend-api/tag/Email-Addresses).
+
+Example Email Address Response
+
+```json
+{
+  "id": "string",
+  "object": "email_address",
+  "email_address": "string",
+  "reserved": true,
+  "verification": {
+    "status": "unverified",
+    "strategy": "phone_code",
+    "attempts": 0,
+    "expire_at": 0,
+    "verified_at_client": "string"
+  },
+  "linked_to": [{}],
+  "matches_sso_connection": true,
+  "created_at": 0,
+  "updated_at": 0
+}
+```
+
+- Create an email address for a user
+
+```elixir
+{:ok, address} = %{
+    user_id: "user_2wpOgEtHRbyzrrwhHzCC0s44yX7",
+    email_address: "<example@email.com>"
+  }
+  |> Clerk.EmailAddresses.create()
+```
+
+- Retrieve an email address by ID
+
+```elixir
+id = "idn_29fk82Jsduewi82938"
+{:ok, address} = Clerk.EmailAddresses.get_id(id)
+```
+
+- Update an email address by ID
+
+```elixir
+id = "idn_29fk82Jsduewi82938"
+{:ok, address} =
+  Clerk.EmailAddresses.update(id, %{
+    verified: true
+  })
+```
+
+- Delete an email address by ID
+
+```elixir
+id = "idn_29fk82Jsduewi82938"
+Clerk.EmailAddresses.delete_id(id)
+```
