@@ -186,7 +186,7 @@ code = "123456"
 {:ok, response} = Clerk.User.verify_totp(user_id, code)
 ```
 
-## Email Addresses
+### Email Addresses
 
 The real responses from the Clerk API might change over time. To get the most up-to-date information on the structure of the responses, always refer to the [official documentation](https://clerk.com/docs/reference/backend-api/tag/Email-Addresses).
 
