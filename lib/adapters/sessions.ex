@@ -23,6 +23,7 @@ defmodule Clerk.Adapters.Sessions do
   @impl true
   def list(params) do
     @url
+    |> set_query_params(params)
     |> get()
     |> handle_response()
   end
@@ -51,18 +52,30 @@ defmodule Clerk.Adapters.Sessions do
   @impl true
   def revoke(id) do
     "#{@url}/#{id}/revoke"
-    |> post()
+    |> post(%{})
     |> handle_response()
   end
 
   @impl true
+  def create_token(id, nil) do
+    "#{@url}/#{id}/tokens"
+    |> post(%{})
+    |> handle_response()
+  end
+
   def create_token(id, expires_in) do
-    "#{@url}/#{id}/token"
+    "#{@url}/#{id}/tokens"
     |> post(%{"expires_in_seconds" => expires_in})
     |> handle_response()
   end
 
   @impl true
+  def create_from_jwt_template(id, template_name, nil) do
+    "#{@url}/#{id}/tokens/#{template_name}"
+    |> post(%{})
+    |> handle_response()
+  end
+
   def create_from_jwt_template(id, template_name, expires_in) do
     "#{@url}/#{id}/tokens/#{template_name}"
     |> post(%{"expires_in_seconds" => expires_in})
