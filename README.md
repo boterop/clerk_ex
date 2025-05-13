@@ -10,7 +10,7 @@ by adding `clerk_ex` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:clerk_ex, "~> 0.1.1"}
+    {:clerk_ex, "~> 0.2.0"}
   ]
 end
 ```
@@ -184,4 +184,183 @@ password = "secret_password"
 user_id = "user_2wpOgEtHRbyzrrwhHzCC0s44yX7"
 code = "123456"
 {:ok, response} = Clerk.User.verify_totp(user_id, code)
+```
+
+### Email Addresses
+
+The real responses from the Clerk API might change over time. To get the most up-to-date information on the structure of the responses, always refer to the [official documentation](https://clerk.com/docs/reference/backend-api/tag/Email-Addresses).
+
+Example Email Address Response
+
+```json
+{
+  "id": "string",
+  "object": "email_address",
+  "email_address": "string",
+  "reserved": true,
+  "verification": {
+    "status": "unverified",
+    "strategy": "phone_code",
+    "attempts": 0,
+    "expire_at": 0,
+    "verified_at_client": "string"
+  },
+  "linked_to": [{}],
+  "matches_sso_connection": true,
+  "created_at": 0,
+  "updated_at": 0
+}
+```
+
+- Create an email address for a user
+
+```elixir
+{:ok, address} = %{
+    user_id: "user_2wpOgEtHRbyzrrwhHzCC0s44yX7",
+    email_address: "<example@email.com>"
+  }
+  |> Clerk.EmailAddresses.create()
+```
+
+- Retrieve an email address by ID
+
+```elixir
+id = "idn_29fk82Jsduewi82938"
+{:ok, address} = Clerk.EmailAddresses.get_id(id)
+```
+
+- Update an email address by ID
+
+```elixir
+id = "idn_29fk82Jsduewi82938"
+{:ok, address} =
+  Clerk.EmailAddresses.update(id, %{
+    verified: true
+  })
+```
+
+- Delete an email address by ID
+
+```elixir
+id = "idn_29fk82Jsduewi82938"
+Clerk.EmailAddresses.delete_id(id)
+```
+
+### Sessions
+
+The real responses from the Clerk API might change over time. To get the most up-to-date information on the structure of the responses, always refer to the [official documentation](https://clerk.com/docs/reference/backend-api/tag/Sessions).
+
+Example Session Response
+
+```json
+{
+  "object": "session",
+  "id": "string",
+  "user_id": "string",
+  "client_id": "string",
+  "actor": {},
+  "status": "active",
+  "last_active_organization_id": "string",
+  "last_active_at": 0,
+  "latest_activity": {},
+  "expire_at": 0,
+  "abandon_at": 0,
+  "updated_at": 0,
+  "created_at": 0
+}
+```
+
+- List Sessions
+
+```elixir
+{:ok, sessions} = Clerk.Sessions.list(%{client_id: "<client_id>"})
+
+{:ok, sessions} = Clerk.Sessions.list(%{user_id: "<user_id>"})
+```
+
+- Create a Session
+
+```elixir
+{:ok, session} = Clerk.Sessions.create("<user_id>")
+```
+
+- Retrieve a Session by ID
+
+```elixir
+{:ok, session} = Clerk.Sessions.get_id("<session_id>")
+```
+
+- Revoke a Session
+
+```elixir
+{:ok, response} = Clerk.Sessions.revoke("<session_id>")
+```
+
+- Create a Token
+
+```elixir
+{:ok, token} = Clerk.Sessions.create_token("<session_id>", "<opitonal_expiration_seconds>")
+```
+
+- Create a Token from a JWT Template
+
+```elixir
+{:ok, token} = Clerk.Sessions.create_from_jwt_template("<session_id>", "<jwt_template_name>", "<optional_expiration_seconds>")
+```
+
+### JWT Templates
+
+The real responses from the Clerk API might change over time. To get the most up-to-date information on the structure of the responses, always refer to the [official documentation](https://clerk.com/docs/reference/backend-api/tag/JWT-Templates).
+
+Example JWT Template Response
+
+```json
+{
+  "object": "jwt_template",
+  "id": "string",
+  "name": "string",
+  "claims": {},
+  "lifetime": 0,
+  "allowed_clock_skew": 0,
+  "custom_signing_key": true,
+  "signing_algorithm": "string",
+  "created_at": 0,
+  "updated_at": 0
+}
+```
+
+- List JWT Templates
+
+```elixir
+{:ok, templates} = Clerk.JWTTemplates.list()
+```
+
+- Retrieve a JWT Template by ID
+
+```elixir
+{:ok, template} = Clerk.JWTTemplates.get_id("<template_id>")
+```
+
+- Create a JWT Template
+
+```elixir
+{:ok, template} = Clerk.JWTTemplates.create(%{
+  name: "template_name",
+  claims: %{},
+})
+```
+
+- Update a JWT Template
+
+```elixir
+{:ok, template} = Clerk.JWTTemplates.update("<template_id>", %{
+  name: "updated_template_name",
+  claims: %{},
+})
+```
+
+- Delete a JWT Template
+
+```elixir
+{:ok, response} = Clerk.JWTTemplates.delete_id("<template_id>")
 ```
