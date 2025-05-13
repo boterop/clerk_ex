@@ -7,7 +7,7 @@ defmodule Clerk.Ports.Sessions do
 
   @callback list(map()) :: HandleResponse.t()
   @callback create(String.t()) :: HandleResponse.t()
-  @callback retrieve(String.t()) :: HandleResponse.t()
+  @callback get_id(String.t()) :: HandleResponse.t()
   @callback refresh(String.t(), map()) :: HandleResponse.t()
   @callback revoke(String.t()) :: HandleResponse.t()
   @callback create_token(String.t(), integer() | nil) :: HandleResponse.t()

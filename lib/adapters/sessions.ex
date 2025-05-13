@@ -36,7 +36,7 @@ defmodule Clerk.Adapters.Sessions do
   end
 
   @impl true
-  def retrieve(id) do
+  def get_id(id) do
     "#{@url}/#{id}"
     |> get()
     |> handle_response()

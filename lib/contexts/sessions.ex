@@ -6,7 +6,7 @@ defmodule Clerk.Sessions do
 
   defdelegate list(params), to: @adapter
   defdelegate create(user_id), to: @adapter
-  defdelegate retrieve(id), to: @adapter
+  defdelegate get_id(id), to: @adapter
   defdelegate refresh(id, params), to: @adapter
   defdelegate revoke(id), to: @adapter
   defdelegate create_token(id, expires_in \\ nil), to: @adapter

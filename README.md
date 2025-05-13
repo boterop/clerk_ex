@@ -287,7 +287,7 @@ Example Session Response
 - Retrieve a Session by ID
 
 ```elixir
-{:ok, session} = Clerk.Sessions.retrieve("<session_id>")
+{:ok, session} = Clerk.Sessions.get_id("<session_id>")
 ```
 
 - Revoke a Session
