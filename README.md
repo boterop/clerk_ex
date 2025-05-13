@@ -307,3 +307,60 @@ Example Session Response
 ```elixir
 {:ok, token} = Clerk.Sessions.create_from_jwt_template("<session_id>", "<jwt_template_name>", "<optional_expiration_seconds>")
 ```
+
+### JWT Templates
+
+The real responses from the Clerk API might change over time. To get the most up-to-date information on the structure of the responses, always refer to the [official documentation](https://clerk.com/docs/reference/backend-api/tag/JWT-Templates).
+
+Example JWT Template Response
+
+```json
+{
+  "object": "jwt_template",
+  "id": "string",
+  "name": "string",
+  "claims": {},
+  "lifetime": 0,
+  "allowed_clock_skew": 0,
+  "custom_signing_key": true,
+  "signing_algorithm": "string",
+  "created_at": 0,
+  "updated_at": 0
+}
+```
+
+- List JWT Templates
+
+```elixir
+{:ok, templates} = Clerk.JWTTemplates.list()
+```
+
+- Retrieve a JWT Template by ID
+
+```elixir
+{:ok, template} = Clerk.JWTTemplates.get_id("<template_id>")
+```
+
+- Create a JWT Template
+
+```elixir
+{:ok, template} = Clerk.JWTTemplates.create(%{
+  name: "template_name",
+  claims: %{},
+})
+```
+
+- Update a JWT Template
+
+```elixir
+{:ok, template} = Clerk.JWTTemplates.update("<template_id>", %{
+  name: "updated_template_name",
+  claims: %{},
+})
+```
+
+- Delete a JWT Template
+
+```elixir
+{:ok, response} = Clerk.JWTTemplates.delete_id("<template_id>")
+```
