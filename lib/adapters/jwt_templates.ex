@@ -21,7 +21,7 @@ defmodule Clerk.Adapters.JWTTemplates do
   @url "/v1/jwt_templates"
 
   @impl true
-  def list() do
+  def list do
     @url
     |> get()
     |> handle_response()
